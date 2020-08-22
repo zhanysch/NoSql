@@ -16,5 +16,23 @@
     <string name="max">Max</string>
     <string name="min">Min</string>
     <string name="this_week">This Week</string>
+    <string name="_30">30</string>
+    <string name="_31">31</string>
+    <string name="_1_6">1/6</string>
+    <string name="_2">2</string>
+    <string name="_3">3</string>
+    <string name="_5">5</string>
+    <string name="_28_n17">28°\n17°</string>
+    <string name="wind">Wind</string>
+    <string name="pressure">Pressure</string>
+    <string name="sw_4m_s">SW 4m/s</string>
+    <string name="_1010mb">1010mb</string>
+    <string name="humidity">Humidity</string>
+    <string name="_81">81%</string>
+    <string name="_100">100%</string>
+    <string name="sunrise">Sunrise</string>
+    <string name="sunset">sunset</string>
+    <string name="_6_00">6:00</string>
+    <string name="_20_31">20:31</string>
 
 </resources>
