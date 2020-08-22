@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">AsyncTascRetrofit</string>
     <string name="api_key">f06c3e4844cbfcd45efad66f15112ca2</string>
+    <string name="may_n2019">May\n2019</string>
+    <string name="May2019">May\n2019</string>
+    <string name="_29">29</string>
+    <string name="_29">29</string>
+    <string name="california_us">California, US</string>
+
 </resources>
