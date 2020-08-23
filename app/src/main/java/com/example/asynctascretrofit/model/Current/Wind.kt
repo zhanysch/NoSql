@@ -1,3 +1,5 @@
+package com.example.asynctascretrofit.model.Current
+
 import com.google.gson.annotations.SerializedName
 
 /*
@@ -12,19 +14,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 For support, please feel free to contact me at https://www.linkedin.com/in/syedabsar */
 
 
-data class CurrentWeather (
+data class Wind (
 
-	@SerializedName("coord") val coord : Coord,
-	@SerializedName("weather") val weather : List<Weather>,
-	@SerializedName("base") val base : String,
-	@SerializedName("main") val main : Main,
-	@SerializedName("visibility") val visibility : Int,
-	@SerializedName("wind") val wind : Wind,
-	@SerializedName("clouds") val clouds : Clouds,
-	@SerializedName("dt") val dt : Int,
-	@SerializedName("sys") val sys : Sys,
-	@SerializedName("timezone") val timezone : Int,
-	@SerializedName("id") val id : Int,
-	@SerializedName("name") val name : String,
-	@SerializedName("cod") val cod : Int
+	@SerializedName("speed") val speed : Double,
+	@SerializedName("deg") val deg : Int
 )

@@ -4,13 +4,11 @@
     <string name="may_n2019">May\n2019</string>
     <string name="May2019">May\n2019</string>
     <string name="_29">29</string>
-    <string name="_29">29</string>
     <string name="california_us">California, US</string>
     <string name="now">Now</string>
     <string name="today">Today</string>
     <string name="_21">21°</string>
     <string name="_28">28°</string>
-    <string name="_18">18°</string>
     <string name="_18">18°</string>
     <string name="little_cloud">Little Cloud</string>
     <string name="max">Max</string>
@@ -34,5 +32,7 @@
     <string name="sunset">sunset</string>
     <string name="_6_00">6:00</string>
     <string name="_20_31">20:31</string>
+    <string name="hallo">Hallo!</string>
+    <string name="go">go</string>
 
 </resources>
