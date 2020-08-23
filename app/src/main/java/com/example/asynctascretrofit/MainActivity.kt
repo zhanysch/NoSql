@@ -61,7 +61,8 @@ class MainActivity : AppCompatActivity() {
     }
 
  fun forecastWeather(city : String){
-     RetrofitBuilder.getService()?.forecast(city,getString(R.string.api_key),"metric")
+     RetrofitBuilder
+         .getService()?.forecast( city,getString(R.string.api_key),"metric")
          ?.enqueue(object  : Callback<ForcastModelOne>{
              override fun onResponse(
                  call: Call<ForcastModelOne>,
@@ -75,7 +76,6 @@ class MainActivity : AppCompatActivity() {
              override fun onFailure(call: Call<ForcastModelOne>, t: Throwable) {
                Log.d("fdsfsfs","ggdgdfgd")
              }
-
          })
  }
 }
