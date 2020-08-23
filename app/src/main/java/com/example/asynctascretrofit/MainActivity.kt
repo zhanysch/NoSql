@@ -3,6 +3,7 @@ package com.example.asynctascretrofit
 import com.example.asynctascretrofit.model.Current.CurrentWeather
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.example.asynctascretrofit.data.RetrofitBuilder
 import com.example.asynctascretrofit.model.ForecastDays.ForcastModelOne
 import com.example.asynctascretrofit.model.ForecastDays.RvAdapter
@@ -17,6 +18,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         receycler.adapter = adapter
+
+        Btngo.setOnClickListener {
+            forecastWeather(Edit.text.toString())
+        }
 
 
 
@@ -36,7 +41,7 @@ class MainActivity : AppCompatActivity() {
                 }
             })
 
-        RetrofitBuilder.getService()?.forecast("Vancouver",getString(R.string.api_key),"metric")
+       /* RetrofitBuilder.getService()?.forecast("Vancouver",getString(R.string.api_key),"metric")
             ?.enqueue(object  : Callback<ForcastModelOne>{
                 override fun onResponse(
                     call: Call<ForcastModelOne>,
@@ -52,9 +57,25 @@ class MainActivity : AppCompatActivity() {
                 }
 
             })
-
+*/
     }
 
+ fun forecastWeather(city : String){
+     RetrofitBuilder.getService()?.forecast(city,getString(R.string.api_key),"metric")
+         ?.enqueue(object  : Callback<ForcastModelOne>{
+             override fun onResponse(
+                 call: Call<ForcastModelOne>,
+                 response: Response<ForcastModelOne>
+             ) {
+                 if (response.isSuccessful && response.body() != null){
+                     adapter.update(response.body()?.list)   // list это class -> ForCastItemNumbeZeroFourth
+                 }
+             }
 
+             override fun onFailure(call: Call<ForcastModelOne>, t: Throwable) {
+               Log.d("fdsfsfs","ggdgdfgd")
+             }
 
+         })
+ }
 }
