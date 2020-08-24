@@ -8,21 +8,26 @@ import com.example.asynctascretrofit.data.RetrofitBuilder
 import com.example.asynctascretrofit.model.ForecastDays.ForcastModelOne
 import com.example.asynctascretrofit.model.ForecastDays.RvAdapter
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.cloud.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.SimpleDateFormat
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
     private val adapter = RvAdapter()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        receycler.adapter = adapter
+        setContentView(R.layout.cloud)
+
+        formatDate()
+       /* receycler.adapter = adapter
 
         Btngo.setOnClickListener {
             forecastWeather(Edit.text.toString())
         }
-
+*/
 
 
         RetrofitBuilder.getService()
@@ -36,7 +41,7 @@ class MainActivity : AppCompatActivity() {
                 ) {
                     if (response.isSuccessful && response.body() != null ){
                         val data = response.body()
-                        weather.text = data?.main?.temp.toString() // main temp из папки model
+                        numberThird.text = data?.main?.temp.toString() // main temp из папки model
                     }
                 }
             })
@@ -60,7 +65,19 @@ class MainActivity : AppCompatActivity() {
 */
     }
 
- fun forecastWeather(city : String){
+    private fun formatDate(){   // с помошью этой функции задаем число дня
+        val sfDay = SimpleDateFormat("d", Locale.getDefault())
+        val date = Date()
+        val day = sfDay.format(date)
+        DateSecond.text = day
+
+        val sfMohnts = SimpleDateFormat("MMMM\nyyyy", Locale.getDefault())
+        val mohnts = sfMohnts.format(date)
+        Date.text=mohnts
+
+    }
+
+/* fun forecastWeather(city : String){
      RetrofitBuilder
          .getService()?.forecast( city,getString(R.string.api_key),"metric")
          ?.enqueue(object  : Callback<ForcastModelOne>{
@@ -77,5 +94,5 @@ class MainActivity : AppCompatActivity() {
                Log.d("fdsfsfs","ggdgdfgd")
              }
          })
- }
+ }*/
 }

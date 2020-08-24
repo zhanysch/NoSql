@@ -148,7 +148,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:textSize="24sp"
-            android:text="@string/_28"
             android:textColor="@color/black"
             android:layout_marginTop="186dp"
             android:layout_marginStart="109dp"
