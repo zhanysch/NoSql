@@ -17,13 +17,25 @@ interface WeatherService {
 
     ) : Call<CurrentWeather>
 
+    @GET("data/2.5/weather")
+    fun getWeatherbycoordianates(
+        @Query("lat") lat: String,
+        @Query("lon") lon: String,
+        @Query("appid") appid: String,
+        @Query("units") units : String
+    ) : Call<CurrentWeather>
 
-    @GET("data/2.5/forecast")
+
+    @GET("data/2.5/forecast")    // на 5 дней
     fun forecast(
         @Query("q") city: String,
         @Query("appid") appid: String,
         @Query("units") units : String
     ) : Call<ForcastModelOne>
+
+
+
+
 
 
 
