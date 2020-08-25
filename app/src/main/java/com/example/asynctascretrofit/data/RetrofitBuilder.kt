@@ -1,7 +1,9 @@
 package com.example.asynctascretrofit.data
 
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 
 object RetrofitBuilder {
 
@@ -10,9 +12,7 @@ object RetrofitBuilder {
     fun getService() : WeatherService? {
         if ( service == null )
             service = buildRetrofit()
-
-        return service
-    }
+        return service }
 
     private fun  buildRetrofit(): WeatherService {     //делает запрос в интернет
 
@@ -20,14 +20,18 @@ object RetrofitBuilder {
             Retrofit.Builder()
                 .baseUrl("http://api.openweathermap.org/")
                 .addConverterFactory(GsonConverterFactory.create())
+                .client(buildOkHttp()) //(2)
                 .build()
                 .create(WeatherService:: class.java)
-
-
         return service
-
     }
 
-
-  //  data/2.5/weather?q=New%20York&appid=f06c3e4844cbfcd45efad66f15112ca2
+    private fun buildOkHttp(): OkHttpClient {  // функц позволяет прокидывать time out (2)
+        val okhttp = OkHttpClient.Builder()
+            .connectTimeout(5,TimeUnit.SECONDS)  // первый time  работает на соедин серв //лимит на connect 5sec
+            .readTimeout(30,TimeUnit.SECONDS)  // полученн данных, в течен 30 сек не придут данные выйдет ошибка
+            .writeTimeout(30,TimeUnit.SECONDS) //отправка данных
+            .build()
+        return okhttp
+    }
 }

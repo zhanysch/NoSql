@@ -1,13 +1,16 @@
-package com.example.asynctascretrofit
+package com.example.asynctascretrofit.ui
 
 import com.example.asynctascretrofit.model.Current.CurrentWeather
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
+import com.example.asynctascretrofit.R
 import com.example.asynctascretrofit.data.RetrofitBuilder
 import com.example.asynctascretrofit.model.ForecastDays.ForcastModelOne
 import com.example.asynctascretrofit.model.ForecastDays.RvAdapter
-import kotlinx.android.synthetic.main.activity_main.*
+import com.example.asynctascretrofit.utilites.ConnectionUtils
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.cloud.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -22,18 +25,20 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.cloud)
 
         formatDate()
-       /* receycler.adapter = adapter
 
-        Btngo.setOnClickListener {
-            forecastWeather(Edit.text.toString())
+       /*
+        receycler.adapter = adapter*/
+
+        val isHasNetwork  = ConnectionUtils.isNetworkAvialable(this)
+        if (!isHasNetwork){
+           showSnackbar()
         }
-*/
-
 
         RetrofitBuilder.getService()
             ?.getWeather("New York" , getString(R.string.api_key), "metric")
             ?.enqueue(object : Callback<CurrentWeather>{
                 override fun onFailure(call: Call<CurrentWeather>, t: Throwable) {
+                   // Toast.makeText(applicationContext , t.localizedMessage,Toast.LENGTH_LONG).show()
                 }
                 override fun onResponse(
                     call: Call<CurrentWeather>,
@@ -42,11 +47,13 @@ class MainActivity : AppCompatActivity() {
                     if (response.isSuccessful && response.body() != null ){
                         val data = response.body()
                         numberThird.text = data?.main?.temp.toString() // main temp из папки model
+                    } else{
+                        Toast.makeText(applicationContext , "no Data",Toast.LENGTH_LONG).show()
                     }
                 }
             })
 
-       /* RetrofitBuilder.getService()?.forecast("Vancouver",getString(R.string.api_key),"metric")
+        RetrofitBuilder.getService()?.forecast("Vancouver",getString(R.string.api_key),"metric")
             ?.enqueue(object  : Callback<ForcastModelOne>{
                 override fun onResponse(
                     call: Call<ForcastModelOne>,
@@ -58,11 +65,9 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 override fun onFailure(call: Call<ForcastModelOne>, t: Throwable) {
-                    TODO("Not yet implemented")
+                   Log.d("fgfdgdfgdg","fdsgdgssd")
                 }
-
             })
-*/
     }
 
     private fun formatDate(){   // с помошью этой функции задаем число дня
@@ -74,25 +79,18 @@ class MainActivity : AppCompatActivity() {
         val sfMohnts = SimpleDateFormat("MMMM\nyyyy", Locale.getDefault())
         val mohnts = sfMohnts.format(date)
         Date.text=mohnts
-
     }
 
-/* fun forecastWeather(city : String){
-     RetrofitBuilder
-         .getService()?.forecast( city,getString(R.string.api_key),"metric")
-         ?.enqueue(object  : Callback<ForcastModelOne>{
-             override fun onResponse(
-                 call: Call<ForcastModelOne>,
-                 response: Response<ForcastModelOne>
-             ) {
-                 if (response.isSuccessful && response.body() != null){
-                     adapter.update(response.body()?.list)   // list это class -> ForCastItemNumbeZeroFourth
-                 }
-             }
+    private fun showSnackbar(){
+        Snackbar.make(parentlayout, "нет соединения", Snackbar.LENGTH_INDEFINITE)
+            .setAction("обновить") {
+                if (!ConnectionUtils.isNetworkAvialable(this)) {
+                    showSnackbar()
+                }
+            }.show()
+    }
 
-             override fun onFailure(call: Call<ForcastModelOne>, t: Throwable) {
-               Log.d("fdsfsfs","ggdgdfgd")
-             }
-         })
- }*/
+    private fun MainSnackbar(){
+        
+    }
 }
