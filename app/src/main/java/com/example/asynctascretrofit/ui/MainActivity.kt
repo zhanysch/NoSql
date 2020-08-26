@@ -37,7 +37,6 @@ class MainActivity : AppCompatActivity() {
 
         if ( PermissionUtils.checkLocationPermission(this) ){
             LoadLocattion()
-
         }
     }
 
@@ -81,9 +80,9 @@ class MainActivity : AppCompatActivity() {
                 ) {
                     if (response.isSuccessful && response.body() != null ){
                         val data = response.body()
-                        numberThird.text = data?.main?.temp.toString() // main temp из папки model
+                       // numberThird.text = data?.main?.temp.toString() // main temp из папки model
                     } else{
-                        Toast.makeText(applicationContext , "no Data",Toast.LENGTH_LONG).show()
+                       // Toast.makeText(applicationContext , "no Data",Toast.LENGTH_LONG).show()
                     }
                 }
             })
@@ -137,11 +136,30 @@ class MainActivity : AppCompatActivity() {
                 call: Call<CurrentWeather>,
                 response: Response<CurrentWeather>
             ) {
-                TODO("Not yet implemented")
+                val city = response.body()?.name
+                val temp = response.body()?.main?.temp
+                val feels =response.body()?.main?.feels_like
+                val min = response.body()?.main?.temp_min
+                val max = response.body()?.main?.temp_max
+                val pressure = response.body()?.main?.pressure
+                val humidity = response.body()?.main?.humidity
+                val cloud = response.body()?.clouds?.all
+                val wind = response.body()?.wind?.speed
+                val sunrise = response.body()?.timezone
+
+                LocationSecond.text = city.toString()
+                numberTWo.text = max.toString()
+                numberThird.text=min.toString()
+                mb.text = pressure.toString()
+                Sw.text = wind.toString()
+                Percent.text = humidity.toString()
+                numberOne.text = cloud.toString()
+
+
             }
 
             override fun onFailure(call: Call<CurrentWeather>, t: Throwable) {
-                TODO("Not yet implemented")
+
             }
 
         })

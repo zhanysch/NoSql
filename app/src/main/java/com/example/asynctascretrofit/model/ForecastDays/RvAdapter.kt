@@ -31,7 +31,7 @@ class RvAdapter : RecyclerView.Adapter<RvAdapter.RvVholder>() {
 
     class RvVholder(v : View) : RecyclerView.ViewHolder(v){
         fun bind(CastItemNumbe: ForCastItemNumbeZeroFourth) {
-            itemView.textTV.text = CastItemNumbe.main.temp.toString()
+            itemView.gradOne.text = CastItemNumbe.main.temp.toString()
         }
     }
 }
