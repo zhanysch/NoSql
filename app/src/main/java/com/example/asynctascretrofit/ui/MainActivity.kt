@@ -148,8 +148,8 @@ class MainActivity : AppCompatActivity() {
                 val sunrise = response.body()?.timezone
 
                 LocationSecond.text = city.toString()
-                numberTWo.text = max.toString()
-                numberThird.text=min.toString()
+                numberTWo.text = max?.toInt().toString()
+                numberThird.text=min?.toInt().toString()
                 mb.text = pressure.toString()
                 Sw.text = wind.toString()
                 Percent.text = humidity.toString()
