@@ -1,6 +1,11 @@
 package com.example.asynctascretrofit.model.ForecastDays
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity
 data class CityModelSecond (
+    @PrimaryKey
     val id : Int,
     val name : String,
     val country : String,

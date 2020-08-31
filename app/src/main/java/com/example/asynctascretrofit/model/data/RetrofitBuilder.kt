@@ -1,4 +1,4 @@
-package com.example.asynctascretrofit.data
+package com.example.asynctascretrofit.model.data
 
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit

@@ -2,7 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
+    android:padding="8dp"
     android:layout_height="wrap_content"
     tools:context=".ui.MainActivity">
 
@@ -14,76 +15,10 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="331dp"/>
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="0dp"/>
 
 
-    <ImageView
-        android:id="@+id/rainy"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:src="@drawable/ic_rainy"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="72dp"
-        android:layout_marginEnd="279dp"/>
-
-
-    <ImageView
-        android:id="@+id/cloudFirst"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:src="@drawable/ic_littlecolud"
-       app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="124dp"
-        android:layout_marginEnd="227dp"/>
-
-
-    <ImageView
-        android:id="@+id/cloudSecond"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:src="@drawable/ic_littlecolud"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="176dp"
-        android:layout_marginEnd="175dp"/>
-
-    <ImageView
-        android:id="@+id/cloudThree"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:src="@drawable/ic_littlecolud"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="228dp"
-        android:layout_marginEnd="123dp"/>
-    <ImageView
-        android:id="@+id/cloudFour"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:src="@drawable/ic_littlecolud"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="280dp"
-        android:layout_marginEnd="71dp"/>
-
-    <ImageView
-        android:id="@+id/cloudFive"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:src="@drawable/ic_littlecolud"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="332dp"
-        android:layout_marginEnd="19dp"/>
 
     <TextView
         android:id="@+id/gradOne"
@@ -97,102 +32,8 @@
         android:text="@string/_30"
         android:textColor="@color/black"
         android:layout_marginTop="5.33dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="331dp"/>
-
-    <TextView
-        android:id="@+id/gradTwo"
-        android:layout_width="24dp"
-        android:layout_height="14dp"
-        android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@id/rainy"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:textSize="12sp"
-        android:text="@string/_31"
-        android:textColor="@color/black"
-        android:layout_marginTop="5.33dp"
-        android:layout_marginStart="72dp"
-        android:layout_marginEnd="279dp"/>
-
-    <TextView
-        android:id="@+id/gradThree"
-        android:layout_width="24dp"
-        android:layout_height="14dp"
-        android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@id/cloudFirst"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:textSize="12sp"
-        android:text="@string/_1_6"
-        android:textColor="@color/black"
-        android:layout_marginTop="5.33dp"
-        android:layout_marginStart="124dp"
-        android:layout_marginEnd="227dp"/>
-
-    <TextView
-        android:id="@+id/gradFour"
-        android:layout_width="24dp"
-        android:layout_height="14dp"
-        android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@id/cloudSecond"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:textSize="12sp"
-        android:text="@string/_2"
-        android:textColor="@color/black"
-        android:layout_marginTop="5.33dp"
-        android:layout_marginStart="176dp"
-        android:layout_marginEnd="175dp"/>
-
-
-    <TextView
-        android:id="@+id/gradFive"
-        android:layout_width="24dp"
-        android:layout_height="14dp"
-        android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@id/cloudThree"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:textSize="12sp"
-        android:text="@string/_3"
-        android:textColor="@color/black"
-        android:layout_marginTop="5.33dp"
-        android:layout_marginStart="228dp"
-        android:layout_marginEnd="123dp"/>
-
-    <TextView
-        android:id="@+id/gradSix"
-        android:layout_width="24dp"
-        android:layout_height="14dp"
-        android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@id/cloudFour"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:textSize="12sp"
-        android:text="4"
-        android:textColor="@color/black"
-        android:layout_marginTop="5.33dp"
-        android:layout_marginStart="280dp"
-        android:layout_marginEnd="71dp"/>
-
-
-    <TextView
-        android:id="@+id/gradSeven"
-        android:layout_width="24dp"
-        android:layout_height="14dp"
-        android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@id/cloudFive"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:textSize="12sp"
-        android:text="@string/_5"
-        android:textColor="@color/black"
-        android:layout_marginTop="5.33dp"
-        android:layout_marginStart="332dp"
-        android:layout_marginEnd="19dp"/>
-
-
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="0dp"/>
 
     <TextView
         android:id="@+id/gradOnepoint"
@@ -205,94 +46,10 @@
         android:textSize="12sp"
         android:text="@string/_28_n17"
         android:layout_marginTop="8dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="331dp"/>
-
-    <TextView
-        android:id="@+id/gradTwopoint"
-        android:layout_width="24dp"
-        android:layout_height="32dp"
-        android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@id/gradTwo"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:textSize="12sp"
-        android:text="@string/_28_n17"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="72dp"
-        android:layout_marginEnd="279dp"/>
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="0dp"/>
 
 
-    <TextView
-        android:id="@+id/gradThreepoint"
-        android:layout_width="24dp"
-        android:layout_height="32dp"
-        android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@id/gradThree"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:textSize="12sp"
-        android:text="@string/_28_n17"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="124dp"
-        android:layout_marginEnd="227dp"/>
-
-
-    <TextView
-        android:id="@+id/gradFourpoint"
-        android:layout_width="24dp"
-        android:layout_height="32dp"
-        android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@id/gradFour"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:textSize="12sp"
-        android:text="@string/_28_n17"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="176dp"
-        android:layout_marginEnd="175dp"/>
-
-    <TextView
-        android:id="@+id/gradFivepoint"
-        android:layout_width="24dp"
-        android:layout_height="32dp"
-        android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@id/gradFive"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:textSize="12sp"
-        android:text="@string/_28_n17"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="228dp"
-        android:layout_marginEnd="123dp"/>
-
-    <TextView
-        android:id="@+id/gradSixpoint"
-        android:layout_width="24dp"
-        android:layout_height="32dp"
-        android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@id/gradSix"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:textSize="12sp"
-        android:text="@string/_28_n17"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="280dp"
-        android:layout_marginEnd="71dp"/>
-
-    <TextView
-        android:id="@+id/gradSevenpoint"
-        android:layout_width="24dp"
-        android:layout_height="32dp"
-        android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@id/gradSeven"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:textSize="12sp"
-        android:text="@string/_28_n17"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="332dp"
-        android:layout_marginEnd="19dp"/>
 
 
 

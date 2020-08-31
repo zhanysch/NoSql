@@ -1,4 +1,4 @@
-package com.example.asynctascretrofit.data
+package com.example.asynctascretrofit.model.data
 
 
 import com.example.asynctascretrofit.model.Current.CurrentWeather
@@ -29,6 +29,16 @@ interface WeatherService {
     @GET("data/2.5/forecast")    // на 5 дней
     fun forecast(
         @Query("q") city: String,
+        @Query("appid") appid: String,
+        @Query("units") units : String
+    ) : Call<ForcastModelOne>
+
+
+    @GET("data/2.5/onecall")    // на 5 дней
+    fun onecall(
+        @Query("lat") lat: String,
+        @Query("lon") lon: String,
+        @Query("exclude") exclude : String,
         @Query("appid") appid: String,
         @Query("units") units : String
     ) : Call<ForcastModelOne>

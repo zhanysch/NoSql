@@ -1,16 +1,15 @@
 package com.example.asynctascretrofit.ui
 
+import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.location.Location
 import com.example.asynctascretrofit.model.Current.CurrentWeather
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import com.example.asynctascretrofit.R
-import com.example.asynctascretrofit.data.RetrofitBuilder
-import com.example.asynctascretrofit.model.ForecastDays.ForcastModelOne
-import com.example.asynctascretrofit.model.ForecastDays.RvAdapter
+import com.example.asynctascretrofit.WeatherApp
+import com.example.asynctascretrofit.model.data.RetrofitBuilder
 import com.example.asynctascretrofit.utilites.ConnectionUtils
 import com.example.asynctascretrofit.utilites.PermissionUtils
 import com.google.android.gms.location.LocationServices
@@ -30,10 +29,8 @@ class MainActivity : AppCompatActivity() {
 
         formatDate()
         MainSnackbarfirst()
-        RetrobuildOne()
 
-       /*
-        receycler.adapter = adapter*/
+        receycler.adapter = adapter
 
         if ( PermissionUtils.checkLocationPermission(this) ){
             LoadLocattion()
@@ -67,44 +64,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun RetrobuildOne(){
-        RetrofitBuilder.getService()
-            ?.getWeather("New York" , getString(R.string.api_key), "metric")
-            ?.enqueue(object : Callback<CurrentWeather>{
-                override fun onFailure(call: Call<CurrentWeather>, t: Throwable) {
-                    // Toast.makeText(applicationContext , t.localizedMessage,Toast.LENGTH_LONG).show()
-                }
-                override fun onResponse(
-                    call: Call<CurrentWeather>,
-                    response: Response<CurrentWeather>
-                ) {
-                    if (response.isSuccessful && response.body() != null ){
-                        val data = response.body()
-                       // numberThird.text = data?.main?.temp.toString() // main temp из папки model
-                    } else{
-                       // Toast.makeText(applicationContext , "no Data",Toast.LENGTH_LONG).show()
-                    }
-                }
-            })
-    }
 
-    private fun RetrobuildTwo(){
-        RetrofitBuilder.getService()?.forecast("Vancouver",getString(R.string.api_key),"metric")
-        ?.enqueue(object  : Callback<ForcastModelOne>{
-            override fun onResponse(
-                call: Call<ForcastModelOne>,
-                response: Response<ForcastModelOne>
-            ) {
-                if (response.isSuccessful && response.body() != null){
-                    adapter.update(response.body()?.list)   // list это class -> ForCastItemNumbeZeroFourth
-                }
-            }
-
-            override fun onFailure(call: Call<ForcastModelOne>, t: Throwable) {
-                Log.d("fgfdgdfgdg","fdsgdgssd")
-            }
-        })
-    }
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -118,12 +78,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("MissingPermission")
     private fun LoadLocattion(){  //(3!!)
         val fpc = LocationServices.getFusedLocationProviderClient(applicationContext)  // для геолокации
         //чтоб код получае разрешения на использование геолокации создаем object PermissionUtils в папке utilities
-
         fpc.lastLocation.addOnSuccessListener {
             LoadByLocation(it)
+           // LoadByLocationSecond(it)
         } .addOnFailureListener{
 
         }
@@ -146,6 +107,7 @@ class MainActivity : AppCompatActivity() {
                 val cloud = response.body()?.clouds?.all
                 val wind = response.body()?.wind?.speed
                 val sunrise = response.body()?.timezone
+              //  WeatherApp.getApp()?.getDB()?.getDao()?.add(response.body()) 1:34:25,in
 
                 LocationSecond.text = city.toString()
                 numberTWo.text = max?.toInt().toString()
@@ -155,13 +117,25 @@ class MainActivity : AppCompatActivity() {
                 Percent.text = humidity.toString()
                 numberOne.text = cloud.toString()
 
-
             }
 
             override fun onFailure(call: Call<CurrentWeather>, t: Throwable) {
+                Log.d("blabla","blabla")
 
             }
 
         })
     }
+
+
+
+
+    /*fun LoadByLocationSecond(location: Location){
+        RetrofitBuilder.getService()?.onecall( location.latitude.toString(), location.longitude.toString(), "hourly,current,minutely",  //ошибка в location latitude and daily , receclerview не отображает картинку
+            getString(R.string.api_key), "metric")
+        })
+    }
+*/
+
+
 }
