@@ -78,7 +78,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    @SuppressLint("MissingPermission")
+
     private fun LoadLocattion(){  //(3!!)
         val fpc = LocationServices.getFusedLocationProviderClient(applicationContext)  // для геолокации
         //чтоб код получае разрешения на использование геолокации создаем object PermissionUtils в папке utilities
