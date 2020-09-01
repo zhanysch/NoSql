@@ -11,6 +11,6 @@ data class ForcastModelOne(
     val message: Int,
     val cnt: Int,
     val city: CityModelSecond,
-    val daily: List<ForCastDailyFourth>
+    val list: List<ForCastDailyFourth>
     // zero потому что идет по позиции 0 . 1 .2... итд по позиции
 )

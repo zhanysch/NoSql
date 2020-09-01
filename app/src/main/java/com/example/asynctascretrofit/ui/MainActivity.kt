@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.util.Log
 import com.example.asynctascretrofit.R
 import com.example.asynctascretrofit.WeatherApp
+import com.example.asynctascretrofit.model.ForecastDays.ForcastModelOne
 import com.example.asynctascretrofit.model.data.RetrofitBuilder
 import com.example.asynctascretrofit.utilites.ConnectionUtils
 import com.example.asynctascretrofit.utilites.PermissionUtils
@@ -75,6 +76,8 @@ class MainActivity : AppCompatActivity() {
         if (requestCode == PermissionUtils.LOCATION_REQUEST_CODE ){
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults [1] == PackageManager.PERMISSION_GRANTED)
                 LoadLocattion()
+
+
         }
     }
 
@@ -84,7 +87,7 @@ class MainActivity : AppCompatActivity() {
         //чтоб код получае разрешения на использование геолокации создаем object PermissionUtils в папке utilities
         fpc.lastLocation.addOnSuccessListener {
             LoadByLocation(it)
-           // LoadByLocationSecond(it)
+            LoadByLocationSecond(it)
         } .addOnFailureListener{
 
         }
@@ -128,14 +131,26 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+    fun LoadByLocationSecond(location: Location) {
+        RetrofitBuilder.getService()?.onecall(
+            location.latitude.toString(),
+            location.longitude.toString(),
+            "hourly,current,minutely",
+            getString(R.string.api_key),
+            "metric"
+        )?.enqueue(object : Callback<ForcastModelOne> {
+            override fun onResponse(
+                call: Call<ForcastModelOne>,
+                response: Response<ForcastModelOne>
+            ) {
+                 if (response.isSuccessful && response.body() != null){  // troubles
+                   adapter.update(response.body()?.list)
 
+            }
 
-    /*fun LoadByLocationSecond(location: Location){
-        RetrofitBuilder.getService()?.onecall( location.latitude.toString(), location.longitude.toString(), "hourly,current,minutely",  //ошибка в location latitude and daily , receclerview не отображает картинку
-            getString(R.string.api_key), "metric")
+            override fun onFailure(call: Call<ForcastModelOne>, t: Throwable) {
+                Log.d("blabla","blabla")
+            }
         })
     }
-*/
-
-
 }

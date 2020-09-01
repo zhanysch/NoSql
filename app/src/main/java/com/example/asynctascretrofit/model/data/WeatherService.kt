@@ -34,7 +34,7 @@ interface WeatherService {
     ) : Call<ForcastModelOne>
 
 
-    @GET("data/2.5/onecall")    // на 5 дней
+    @GET("data/2.5/onecall")    // на 7 дней
     fun onecall(
         @Query("lat") lat: String,
         @Query("lon") lon: String,
