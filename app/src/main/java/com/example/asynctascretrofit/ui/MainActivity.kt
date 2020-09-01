@@ -143,8 +143,9 @@ class MainActivity : AppCompatActivity() {
                 call: Call<ForcastModelOne>,
                 response: Response<ForcastModelOne>
             ) {
-                 if (response.isSuccessful && response.body() != null){  // troubles
-                   adapter.update(response.body()?.list)
+                 if (response.isSuccessful && response.body() != null) {  // troubles
+                     adapter.update(response.body()?.daily)
+                 }
 
             }
 
