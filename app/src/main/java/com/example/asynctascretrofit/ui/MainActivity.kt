@@ -113,7 +113,7 @@ class MainActivity : AppCompatActivity() {
                 val sunrise = formatDate(response.body()?.sys?.sunrise)                //response.body()?.sys?.sunrise
                 val sunset = response.body()?.sys?.sunset
                 val image = response.body()?.weather?.first()?.icon
-                val descript = response.body()?.description//11
+                val descript = response.body()?.weather?.first()?.description
               //  WeatherApp.getApp()?.getDB()?.getDao()?.add(response.body()) 1:34:25,in
 
                 LocationSecond.text = city.toString()
