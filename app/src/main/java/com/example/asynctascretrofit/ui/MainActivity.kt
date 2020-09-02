@@ -102,7 +102,7 @@ class MainActivity : AppCompatActivity() {
                 response: Response<CurrentWeather>
             ) {
                 val city = response.body()?.name
-                val temp = response.body()?.main?.temp
+                val temp =   getString(R.string._18,response.body()?.main?.temp?.toInt().toString())                        //response.body()?.main?.temp
                 val feels =response.body()?.main?.feels_like
                 val min = response.body()?.main?.temp_min
                 val max = response.body()?.main?.temp_max
@@ -122,7 +122,7 @@ class MainActivity : AppCompatActivity() {
                 mb.text = pressure.toString()
                 Sw.text = wind.toString()
                 Percent.text = humidity.toString()
-                numberOne.text = temp?.toInt().toString()
+                numberOne.text = temp
                 PercentSecond.text=cloud.toString()
                 hour.text = sunrise
                 hourSecond.text=sunset?.toInt().toString()

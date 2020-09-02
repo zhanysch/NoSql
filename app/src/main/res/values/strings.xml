@@ -9,7 +9,7 @@
     <string name="today">Today</string>
     <string name="_21">21°</string>
     <string name="_28">28°</string>
-    <string name="_18">18°</string>
+    <string name="_18">%1s°</string>
     <string name="little_cloud">Little Cloud</string>
     <string name="max">Max</string>
     <string name="min">Min</string>
