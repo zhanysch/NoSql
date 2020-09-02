@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun formatDate(){   // с помошью этой функции задаем число дня
+    private fun formatDate(){   // с помошью этой функции задаем число дня  //(000000000)
         val sfDay = SimpleDateFormat("d", Locale.getDefault())
         val date = Date()
         val day = sfDay.format(date)
@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
         Date.text=mohnts
     }
 
-    private fun showSnackbar(){   //(1)
+    private fun showSnackbar(){  /// (№ 1111111111 snackbar)
         Snackbar.make(parentlayout, "нет соединения", Snackbar.LENGTH_INDEFINITE) // parentlayout это id xml верстки cloud layout, иначе snackbar не работает
             .setAction("обновить") {                                       // чтоб работал snackbar необходимо давать id layout
                 if (!ConnectionUtils.isNetworkAvialable(this)) {
@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity() {
             }.show()
     }
 
-    private fun MainSnackbarfirst(){   // (2)
+    private fun MainSnackbarfirst(){   // (№ 1111111111 snackbar)
         val isHasNetwork  = ConnectionUtils.isNetworkAvialable(this)
         if (!isHasNetwork){
             showSnackbar()
@@ -67,12 +67,12 @@ class MainActivity : AppCompatActivity() {
 
 
 
-    override fun onRequestPermissionsResult(
+    override fun onRequestPermissionsResult(  // (№4444 location)
         requestCode: Int,
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults) // (№4444 location)
         if (requestCode == PermissionUtils.LOCATION_REQUEST_CODE ){
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults [1] == PackageManager.PERMISSION_GRANTED)
                 LoadLocattion()
@@ -82,7 +82,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    private fun LoadLocattion(){  //(3!!)
+    private fun LoadLocattion(){  // (№4444 location)
         val fpc = LocationServices.getFusedLocationProviderClient(applicationContext)  // для геолокации
         //чтоб код получае разрешения на использование геолокации создаем object PermissionUtils в папке utilities
         fpc.lastLocation.addOnSuccessListener {
@@ -93,7 +93,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun LoadByLocation(location: Location){
+    fun LoadByLocation(location: Location){   // (№4444 location)
         RetrofitBuilder.getService()?.getWeatherbycoordianates(location.latitude.toString(), location.longitude.toString(),
             getString(R.string.api_key), "metric")?.enqueue(object : Callback<CurrentWeather>{
             override fun onResponse(
@@ -118,7 +118,8 @@ class MainActivity : AppCompatActivity() {
                 mb.text = pressure.toString()
                 Sw.text = wind.toString()
                 Percent.text = humidity.toString()
-                numberOne.text = cloud.toString()
+                numberOne.text = temp?.toInt().toString()
+                PercentSecond.text=cloud.toString()
 
             }
 
@@ -131,7 +132,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    fun LoadByLocationSecond(location: Location) {
+    fun LoadByLocationSecond(location: Location) {         // (№4444 location)
         RetrofitBuilder.getService()?.onecall(
             location.latitude.toString(),
             location.longitude.toString(),

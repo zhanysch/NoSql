@@ -28,9 +28,8 @@
         app:layout_constraintTop_toBottomOf="@id/cloudy"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:textSize="12sp"
         android:text="@string/_30"
-        android:textColor="@color/black"
+        style="@style/tvclouds"
         android:layout_marginTop="5.33dp"
         android:layout_marginStart="0dp"
         android:layout_marginEnd="0dp"/>
