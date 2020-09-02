@@ -28,6 +28,7 @@ data class CurrentWeather (
     @SerializedName("timezone") val timezone : Int,
     @SerializedName("id") val id : Int,
     @SerializedName("name") val name : String,
+    @SerializedName("description") val description : String, // to be deleted
     @SerializedName("cod") val cod : Int
 
 )

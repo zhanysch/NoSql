@@ -110,9 +110,10 @@ class MainActivity : AppCompatActivity() {
                 val humidity = response.body()?.main?.humidity
                 val cloud = response.body()?.clouds?.all
                 val wind = response.body()?.wind?.speed
-                val sunrise = response.body()?.sys?.sunrise
+                val sunrise = formatDate(response.body()?.sys?.sunrise)                //response.body()?.sys?.sunrise
                 val sunset = response.body()?.sys?.sunset
                 val image = response.body()?.weather?.first()?.icon
+                val descript = response.body()?.description//11
               //  WeatherApp.getApp()?.getDB()?.getDao()?.add(response.body()) 1:34:25,in
 
                 LocationSecond.text = city.toString()
@@ -123,8 +124,9 @@ class MainActivity : AppCompatActivity() {
                 Percent.text = humidity.toString()
                 numberOne.text = temp?.toInt().toString()
                 PercentSecond.text=cloud.toString()
-                hour.text = sunrise?.toInt().toString()
+                hour.text = sunrise
                 hourSecond.text=sunset?.toInt().toString()
+                LittleCloud.text=descript.toString()  // 11
                 Picasso.get().load("http://openweathermap.org/img/w/$image.png").into(cloudmain)
             }
 
@@ -134,6 +136,12 @@ class MainActivity : AppCompatActivity() {
             }
 
         })
+    }
+
+
+    fun formatDate(date: Int?): String {
+        val newdata = date?.toLong()?:0
+        return SimpleDateFormat("H:mm", Locale.getDefault()).format(Date(newdata * 1000))
     }
 
 

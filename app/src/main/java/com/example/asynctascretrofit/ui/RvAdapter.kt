@@ -38,7 +38,7 @@ class RvAdapter : RecyclerView.Adapter<RvAdapter.RvVholder>() {
             itemView.gradOnepoint.text=data.temp.max.toInt().toString()
             itemView.gradTWopoint.text=data.temp.min.toInt().toString()
            val image = data.weather.first().icon
-            Picasso.get().load(" http://openweathermap.org/img/w/$image.png").into(itemView.cloudy)
+           Picasso.get().load("http://openweathermap.org/img/w/$image.png").into(itemView.cloudy)
             //http://openweathermap.org/img/w/10d.png
 
         }
