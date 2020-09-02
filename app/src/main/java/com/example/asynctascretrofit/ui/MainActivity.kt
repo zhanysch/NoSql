@@ -15,6 +15,7 @@ import com.example.asynctascretrofit.utilites.ConnectionUtils
 import com.example.asynctascretrofit.utilites.PermissionUtils
 import com.google.android.gms.location.LocationServices
 import com.google.android.material.snackbar.Snackbar
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.cloud.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -109,7 +110,9 @@ class MainActivity : AppCompatActivity() {
                 val humidity = response.body()?.main?.humidity
                 val cloud = response.body()?.clouds?.all
                 val wind = response.body()?.wind?.speed
-                val sunrise = response.body()?.timezone
+                val sunrise = response.body()?.sys?.sunrise
+                val sunset = response.body()?.sys?.sunset
+                val image = response.body()?.weather?.first()?.icon
               //  WeatherApp.getApp()?.getDB()?.getDao()?.add(response.body()) 1:34:25,in
 
                 LocationSecond.text = city.toString()
@@ -120,7 +123,9 @@ class MainActivity : AppCompatActivity() {
                 Percent.text = humidity.toString()
                 numberOne.text = temp?.toInt().toString()
                 PercentSecond.text=cloud.toString()
-
+                hour.text = sunrise?.toInt().toString()
+                hourSecond.text=sunset?.toInt().toString()
+                Picasso.get().load("http://openweathermap.org/img/w/$image.png").into(cloudmain)
             }
 
             override fun onFailure(call: Call<CurrentWeather>, t: Throwable) {

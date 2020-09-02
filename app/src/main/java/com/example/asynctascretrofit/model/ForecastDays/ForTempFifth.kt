@@ -13,6 +13,6 @@ class ForTempFifth (
     val max : Double,
     val night : Double,
     val eve : Double,
-    val morn : Double,
-    @SerializedName("weather") val weather : List<Weather> // берем из класса current weather  для отображ картинки
+    val morn : Double
+
 )

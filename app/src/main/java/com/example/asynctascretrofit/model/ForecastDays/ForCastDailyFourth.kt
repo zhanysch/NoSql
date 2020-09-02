@@ -2,6 +2,8 @@ package com.example.asynctascretrofit.model.ForecastDays
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.example.asynctascretrofit.model.Current.Weather
+import com.google.gson.annotations.SerializedName
 import java.sql.RowId
 
 @Entity
@@ -20,5 +22,6 @@ data class ForCastDailyFourth (
     val pop : Double,
     val rain : Double,
     val uvi : Double,
+    @SerializedName("weather") val weather : List<Weather>, // берем из класса current weather  для отображ картинки
     val temp : ForTempFifth
 )
