@@ -23,10 +23,10 @@
     <string name="_28_n17">28°\n17°</string>
     <string name="wind">Wind</string>
     <string name="pressure">Pressure</string>
-    <string name="sw_4m_s">SW 4m/s</string>
-    <string name="_1010mb">1010mb</string>
+    <string name="sw_4m_s">%1sm/s</string>
+    <string name="_1010mb" >%1smb</string>
     <string name="humidity">Humidity</string>
-    <string name="_81">81%</string>
+    <string name="_81">%1$d%%</string> // percent
     <string name="_100">100%</string>
     <string name="sunrise">Sunrise</string>
     <string name="sunset">sunset</string>

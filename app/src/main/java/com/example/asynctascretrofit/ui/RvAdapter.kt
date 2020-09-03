@@ -34,7 +34,7 @@ class RvAdapter : RecyclerView.Adapter<RvAdapter.RvVholder>() {
 
     class RvVholder(v : View) : RecyclerView.ViewHolder(v){
         fun bind(data: ForCastDailyFourth) {
-            itemView.gradOne.text =data.temp.day.toInt().toString()
+            itemView.gradOne.text =  data.temp.day.toInt().toString()
             itemView.gradOnepoint.text=data.temp.max.toInt().toString()
             itemView.gradTWopoint.text=data.temp.min.toInt().toString()
            val image = data.weather.first().icon

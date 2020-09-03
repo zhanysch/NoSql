@@ -104,28 +104,28 @@ class MainActivity : AppCompatActivity() {
                 val city = response.body()?.name
                 val temp =   getString(R.string._18,response.body()?.main?.temp?.toInt().toString())                        //response.body()?.main?.temp
                 val feels =response.body()?.main?.feels_like
-                val min = response.body()?.main?.temp_min
-                val max = response.body()?.main?.temp_max
-                val pressure = response.body()?.main?.pressure
-                val humidity = response.body()?.main?.humidity
-                val cloud = response.body()?.clouds?.all
-                val wind = response.body()?.wind?.speed
+                val min = getString(R.string._18,response.body()?.main?.temp_min?.toInt().toString())   //response.body()?.main?.temp_min
+                val max = getString(R.string._18,response.body()?.main?.temp_max?.toInt().toString()) //response.body()?.main?.temp_max
+                val pressure = getString(R.string._1010mb,response.body()?.main?.pressure.toString())
+                val humidity= getString(R.string._81,response.body()?.main?.humidity)
+                val cloud = getString(R.string._81,response.body()?.clouds?.all)
+                val wind = getString(R.string.sw_4m_s,response.body()?.wind?.speed?.toInt().toString())//response.body()?.wind?.speed
                 val sunrise = formatDate(response.body()?.sys?.sunrise)                //response.body()?.sys?.sunrise
-                val sunset = response.body()?.sys?.sunset
+                val sunset = formatDate(response.body()?.sys?.sunset)
                 val image = response.body()?.weather?.first()?.icon
                 val descript = response.body()?.weather?.first()?.description
               //  WeatherApp.getApp()?.getDB()?.getDao()?.add(response.body()) 1:34:25,in
 
                 LocationSecond.text = city.toString()
-                numberTWo.text = max?.toInt().toString()
-                numberThird.text=min?.toInt().toString()
-                mb.text = pressure.toString()
-                Sw.text = wind.toString()
-                Percent.text = humidity.toString()
+                numberTWo.text = max
+                numberThird.text=min
+                mb.text = pressure
+                Sw.text = wind
+                Percent.text = humidity
                 numberOne.text = temp
-                PercentSecond.text=cloud.toString()
+                PercentSecond.text=cloud
                 hour.text = sunrise
-                hourSecond.text=sunset?.toInt().toString()
+                hourSecond.text=sunset
                 LittleCloud.text=descript.toString()  // 11
                 Picasso.get().load("http://openweathermap.org/img/w/$image.png").into(cloudmain)
             }
