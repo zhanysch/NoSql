@@ -34,7 +34,6 @@ class MainActivity : AppCompatActivity() {
 
         formatDate()
         MainSnackbarfirst()
-
         receycler.adapter = adapter
 
         if ( PermissionUtils.checkLocationPermission(this) ){
@@ -46,13 +45,14 @@ class MainActivity : AppCompatActivity() {
     private fun  LocalGeo(location: Location){
         GlobalScope.launch {
             kotlin.runCatching {
-                val res = service
+                val res = RetrofitBuilder.getService()
                     ?.onecallGeo( location.latitude.toString(),
                         location.longitude.toString(),
                         "hourly,current,minutely",
                         getString(R.string.api_key),
                         "metric")
                 FullViews(res)
+                Log.d("blabla", "blabla")
             }.onFailure {
                 Log.d("blabla", "blabla")
             }
@@ -63,7 +63,9 @@ class MainActivity : AppCompatActivity() {
     private fun FullViews(res: ForcastModelOne?) {
         runOnUiThread {
 
-            adapter.update(res?.daily)
+            if (res != null) {  // troubles
+                adapter.update(res.daily)
+            }
         }
     }
 

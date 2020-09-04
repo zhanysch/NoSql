@@ -34,7 +34,7 @@ interface WeatherService {
     ) : CurrentWeather
 
     @GET("data/2.5/onecall")    // на 7 дней
-    fun onecallGeo(
+    suspend fun onecallGeo(
         @Query("lat") lat: String,
         @Query("lon") lon: String,
         @Query("exclude") exclude : String,
