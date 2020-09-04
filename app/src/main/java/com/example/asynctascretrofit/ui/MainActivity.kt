@@ -173,35 +173,4 @@ class MainActivity : AppCompatActivity() {
 
         }
     }
-
-
- /*   fun formatDate(date: Int?): String {
-        val newdata = date?.toLong()?:0
-        return SimpleDateFormat("H:mm", Locale.getDefault()).format(Date(newdata * 1000))
-    }*/
-
-
-   /* fun LoadByLocationSecond(location: Location) {         // (№4444 location)
-        RetrofitBuilder.getService()?.onecall(
-            location.latitude.toString(),
-            location.longitude.toString(),
-            "hourly,current,minutely",
-            getString(R.string.api_key),
-            "metric"
-        )?.enqueue(object : Callback<ForcastModelOne> {
-            override fun onResponse(
-                call: Call<ForcastModelOne>,
-                response: Response<ForcastModelOne>
-            ) {
-                 if (response.isSuccessful && response.body() != null) {  // troubles
-                     adapter.update(response.body()?.daily)
-                 }
-
-            }
-
-            override fun onFailure(call: Call<ForcastModelOne>, t: Throwable) {
-                Log.d("blabla","blabla")
-            }
-        })
-    }*/
 }
