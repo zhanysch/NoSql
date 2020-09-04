@@ -25,6 +25,23 @@ interface WeatherService {
         @Query("units") units : String
     ) : Call<CurrentWeather>
 
+    @GET("data/2.5/weather")
+     suspend fun getWeatherbycoordianatesCoruntines(  // suspend значит функц будет выполн в дополн потоке  ии ее надо подождать
+        @Query("lat") lat: String,
+        @Query("lon") lon: String,
+        @Query("appid") appid: String,
+        @Query("units") units : String
+    ) : CurrentWeather
+
+    @GET("data/2.5/onecall")    // на 7 дней
+    fun onecallGeo(
+        @Query("lat") lat: String,
+        @Query("lon") lon: String,
+        @Query("exclude") exclude : String,
+        @Query("appid") appid: String,
+        @Query("units") units : String
+    ) : ForcastModelOne
+
 
     @GET("data/2.5/forecast")    // на 5 дней
     fun forecast(

@@ -1,6 +1,5 @@
 package com.example.asynctascretrofit.ui
 
-import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.location.Location
 import com.example.asynctascretrofit.model.Current.CurrentWeather
@@ -8,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.example.asynctascretrofit.R
-import com.example.asynctascretrofit.WeatherApp
 import com.example.asynctascretrofit.model.ForecastDays.ForcastModelOne
 import com.example.asynctascretrofit.model.data.RetrofitBuilder
 import com.example.asynctascretrofit.utilites.ConnectionUtils
@@ -17,6 +15,8 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.cloud.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -25,6 +25,9 @@ import java.util.*
 
 class MainActivity : AppCompatActivity() {
     private val adapter = RvAdapter()
+    val service = RetrofitBuilder.getService()
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.cloud)
@@ -37,7 +40,71 @@ class MainActivity : AppCompatActivity() {
         if ( PermissionUtils.checkLocationPermission(this) ){
             LoadLocattion()
         }
+
     }
+
+    private fun  LocalGeo(location: Location){
+        GlobalScope.launch {
+            kotlin.runCatching {
+                val res = service
+                    ?.onecallGeo( location.latitude.toString(),
+                        location.longitude.toString(),
+                        "hourly,current,minutely",
+                        getString(R.string.api_key),
+                        "metric")
+                FullViews(res)
+            }.onFailure {
+                Log.d("blabla", "blabla")
+            }
+        }
+
+    }
+
+    private fun FullViews(res: ForcastModelOne?) {
+        runOnUiThread {
+
+            adapter.update(res?.daily)
+        }
+    }
+
+    private fun Local(location: Location){  //!!!  1.555     // 1) для работы coruntine
+
+        GlobalScope.launch {
+            kotlin.runCatching {
+                val result = service
+                    ?.getWeatherbycoordianatesCoruntines(location.latitude.toString(), location.longitude.toString(),
+                        getString(R.string.api_key), "metric")
+                fillViews(result)
+
+                Log.d("dgdgfdg","dgdgdfgd")
+            }.onFailure {
+                Log.d("dgdgfdg","dgdgdfgd")
+            }
+        }
+    }
+
+    private fun fillViews(result: CurrentWeather?) { //2.555
+        runOnUiThread {
+
+            LocationSecond.text = result?.name.toString()
+            numberOne.text = getString(R.string._18,result?.main?.temp?.toInt().toString())
+            numberThird.text = getString(R.string._18,result?.main?.temp_min?.toInt().toString())
+            numberTWo.text = getString(R.string._18,result?.main?.temp_max?.toInt().toString())
+            mb.text = getString(R.string._1010mb,result?.main?.pressure.toString())
+            Percent.text = getString(R.string._81,result?.main?.humidity)
+            PercentSecond.text= getString(R.string._81,result?.clouds?.all)
+            Sw.text = getString(R.string.sw_4m_s,result?.wind?.speed?.toInt().toString())
+            hour.text = formatDate(result?.sys?.sunrise)
+            hourSecond.text=formatDate(result?.sys?.sunset)
+            LittleCloud.text=result?.weather?.first()?.description
+            val image = result?.weather?.first()?.icon
+            Picasso.get().load("http://openweathermap.org/img/w/$image.png").into(cloudmain)
+
+        }
+    }
+
+
+
 
     private fun formatDate(){   // с помошью этой функции задаем число дня  //(000000000)
         val sfDay = SimpleDateFormat("d", Locale.getDefault())
@@ -87,55 +154,14 @@ class MainActivity : AppCompatActivity() {
         val fpc = LocationServices.getFusedLocationProviderClient(applicationContext)  // для геолокации
         //чтоб код получае разрешения на использование геолокации создаем object PermissionUtils в папке utilities
         fpc.lastLocation.addOnSuccessListener {
-            LoadByLocation(it)
-            LoadByLocationSecond(it)
+           // LoadByLocation(it)
+           // LoadByLocationSecond(it)
+            Local(it)      //!!!  2.555
+            LocalGeo(it)
+
         } .addOnFailureListener{
 
         }
-    }
-
-    fun LoadByLocation(location: Location){   // (№4444 location)
-        RetrofitBuilder.getService()?.getWeatherbycoordianates(location.latitude.toString(), location.longitude.toString(),
-            getString(R.string.api_key), "metric")?.enqueue(object : Callback<CurrentWeather>{
-            override fun onResponse(
-                call: Call<CurrentWeather>,
-                response: Response<CurrentWeather>
-            ) {
-                val city = response.body()?.name
-                val temp =   getString(R.string._18,response.body()?.main?.temp?.toInt().toString())                        //response.body()?.main?.temp
-                val feels =response.body()?.main?.feels_like
-                val min = getString(R.string._18,response.body()?.main?.temp_min?.toInt().toString())   //response.body()?.main?.temp_min
-                val max = getString(R.string._18,response.body()?.main?.temp_max?.toInt().toString()) //response.body()?.main?.temp_max
-                val pressure = getString(R.string._1010mb,response.body()?.main?.pressure.toString())
-                val humidity= getString(R.string._81,response.body()?.main?.humidity)
-                val cloud = getString(R.string._81,response.body()?.clouds?.all)
-                val wind = getString(R.string.sw_4m_s,response.body()?.wind?.speed?.toInt().toString())//response.body()?.wind?.speed
-                val sunrise = formatDate(response.body()?.sys?.sunrise)                //response.body()?.sys?.sunrise
-                val sunset = formatDate(response.body()?.sys?.sunset)
-                val image = response.body()?.weather?.first()?.icon
-                val descript = response.body()?.weather?.first()?.description
-              //  WeatherApp.getApp()?.getDB()?.getDao()?.add(response.body()) 1:34:25,in
-
-                LocationSecond.text = city.toString()
-                numberTWo.text = max
-                numberThird.text=min
-                mb.text = pressure
-                Sw.text = wind
-                Percent.text = humidity
-                numberOne.text = temp
-                PercentSecond.text=cloud
-                hour.text = sunrise
-                hourSecond.text=sunset
-                LittleCloud.text=descript.toString()  // 11
-                Picasso.get().load("http://openweathermap.org/img/w/$image.png").into(cloudmain)
-            }
-
-            override fun onFailure(call: Call<CurrentWeather>, t: Throwable) {
-                Log.d("blabla","blabla")
-
-            }
-
-        })
     }
 
 
@@ -145,7 +171,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    fun LoadByLocationSecond(location: Location) {         // (№4444 location)
+   /* fun LoadByLocationSecond(location: Location) {         // (№4444 location)
         RetrofitBuilder.getService()?.onecall(
             location.latitude.toString(),
             location.longitude.toString(),
@@ -167,5 +193,5 @@ class MainActivity : AppCompatActivity() {
                 Log.d("blabla","blabla")
             }
         })
-    }
+    }*/
 }
