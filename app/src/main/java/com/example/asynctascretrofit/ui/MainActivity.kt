@@ -96,14 +96,22 @@ class MainActivity : AppCompatActivity() {
             Percent.text = getString(R.string._81,result?.main?.humidity)
             PercentSecond.text= getString(R.string._81,result?.clouds?.all)
             Sw.text = getString(R.string.sw_4m_s,result?.wind?.speed?.toInt().toString())
+
             hour.text = formatDate(result?.sys?.sunrise)
             hourSecond.text=formatDate(result?.sys?.sunset)
+
             LittleCloud.text=result?.weather?.first()?.description
             val image = result?.weather?.first()?.icon
             Picasso.get().load("http://openweathermap.org/img/w/$image.png").into(cloudmain)
 
         }
     }
+
+    fun formatDate(date: Int?): String {
+        val newdata = date?.toLong()?:0
+        return SimpleDateFormat("H:mm", Locale.getDefault()).format(Date(newdata * 1000))
+    }
+
 
 
 
@@ -167,10 +175,10 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    fun formatDate(date: Int?): String {
+ /*   fun formatDate(date: Int?): String {
         val newdata = date?.toLong()?:0
         return SimpleDateFormat("H:mm", Locale.getDefault()).format(Date(newdata * 1000))
-    }
+    }*/
 
 
    /* fun LoadByLocationSecond(location: Location) {         // (№4444 location)
