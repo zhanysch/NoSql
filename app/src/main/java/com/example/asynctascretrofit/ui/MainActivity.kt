@@ -108,8 +108,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun formatDate(date: Int?): String {
-        val newdata = date?.toLong()?:0
-        return SimpleDateFormat("H:mm", Locale.getDefault()).format(Date(newdata * 1000))
+        val newdata = date?.toLong()?:0 // ?:0 <- оператор элвиса ,  длтгчтб (date: Int?) date : int? может быть null , a строчка
+        // 113 туда для умножения нужен обьязательно не null и выходила ошибка поэтому , даем оператор элвиса
+        return SimpleDateFormat("H:mm", Locale.getDefault()).format(Date(newdata * 1000)) //  Locale.getDefault()) это часовой пояс котор установлен на телефоне
+        // он будет давать данные исходя из часового пояся
     }
 
 
