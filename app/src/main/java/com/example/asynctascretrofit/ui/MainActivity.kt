@@ -6,7 +6,10 @@ import com.example.asynctascretrofit.model.Current.CurrentWeather
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
+import androidx.lifecycle.LiveData
 import com.example.asynctascretrofit.R
+import com.example.asynctascretrofit.WeatherApp
 import com.example.asynctascretrofit.model.ForecastDays.ForcastModelOne
 import com.example.asynctascretrofit.model.data.RetrofitBuilder
 import com.example.asynctascretrofit.utilites.ConnectionUtils
@@ -17,16 +20,13 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.cloud.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
+
     private val adapter = RvAdapter()
     val service = RetrofitBuilder.getService()
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +39,14 @@ class MainActivity : AppCompatActivity() {
         if ( PermissionUtils.checkLocationPermission(this) ){
             LoadLocattion()
         }
+        WeatherApp.getApp()?.getDB()?.getDao()?.getAll()?.observe(this, androidx.lifecycle.Observer {
+            Toast.makeText(this, "${it.isNotEmpty()}" , Toast.LENGTH_LONG).show()
+            if (it.isNotEmpty()) {
+                val item = it.first()
+                adapter.update(item.daily)
+
+            }
+        })
 
     }
 
@@ -62,9 +70,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun FullViews(res: ForcastModelOne?) {
         runOnUiThread {
-
             if (res != null) {  // troubles
-                adapter.update(res.daily)
+                res.let {
+                    WeatherApp.getApp()?.getDB()?.getDao()?.addForcast(it)
+                }
+                /*adapter.update(res.daily)*/
             }
         }
     }
@@ -156,8 +166,6 @@ class MainActivity : AppCompatActivity() {
         if (requestCode == PermissionUtils.LOCATION_REQUEST_CODE ){
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults [1] == PackageManager.PERMISSION_GRANTED)
                 LoadLocattion()
-
-
         }
     }
 
@@ -166,8 +174,6 @@ class MainActivity : AppCompatActivity() {
         val fpc = LocationServices.getFusedLocationProviderClient(applicationContext)  // для геолокации
         //чтоб код получае разрешения на использование геолокации создаем object PermissionUtils в папке utilities
         fpc.lastLocation.addOnSuccessListener {
-           // LoadByLocation(it)
-           // LoadByLocationSecond(it)
             Local(it)      //!!!  2.555
             LocalGeo(it)
 
