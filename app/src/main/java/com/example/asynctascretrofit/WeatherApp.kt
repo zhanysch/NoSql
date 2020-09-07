@@ -6,13 +6,15 @@ import com.example.asynctascretrofit.model.LocalRoom.AppDataBaseAbstrct
 
 class WeatherApp : Application() {
 
-    private val db : AppDataBaseAbstrct? = null
+    private var db : AppDataBaseAbstrct? = null
 
     override fun onCreate() {
         super.onCreate()
+
         app= this
 
-        val db = Room.databaseBuilder(applicationContext, AppDataBaseAbstrct::class.java,DB_Name)
+        db = Room.databaseBuilder(applicationContext
+             , AppDataBaseAbstrct::class.java,DB_Name)
             .allowMainThreadQueries()
             .build()
     }

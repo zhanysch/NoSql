@@ -70,11 +70,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun FullViews(res: ForcastModelOne?) {
         runOnUiThread {
-            if (res != null) {  // troubles
-                res.let {
-                    WeatherApp.getApp()?.getDB()?.getDao()?.addForcast(it)
-                }
-                /*adapter.update(res.daily)*/
+            res?.let {
+                WeatherApp.getApp()?.getDB()?.getDao()?.addForcast(it)
+                Log.d("blabla", "blabla")
             }
         }
     }
