@@ -8,7 +8,7 @@ import com.example.asynctascretrofit.model.ForecastDays.*
 
 
 @Database (entities = [CityModelSecond::class, CoordThird::class,ForCastDailyFourth::class,
-    ForcastModelOne::class,ForTempFifth::class], version = 2, exportSchema = false)
+    ForcastModelOne::class,ForTempFifth::class], version = 3, exportSchema = false)
 @TypeConverters(value = [TypeConverter::class])
 abstract class AppDataBaseAbstrct : RoomDatabase() {
     abstract fun getDao(): WeatherDao

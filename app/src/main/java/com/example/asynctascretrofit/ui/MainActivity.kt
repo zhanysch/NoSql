@@ -172,8 +172,13 @@ class MainActivity : AppCompatActivity() {
         val fpc = LocationServices.getFusedLocationProviderClient(applicationContext)  // для геолокации
         //чтоб код получае разрешения на использование геолокации создаем object PermissionUtils в папке utilities
         fpc.lastLocation.addOnSuccessListener {
-            Local(it)      //!!!  2.555
-            LocalGeo(it)
+            if(it != null){
+                Local(it)      //!!!  2.555
+                LocalGeo(it)
+            }
+            else {
+                Log.d("gdgdgdgfd","dfgdgdfgdgdfg")
+            }
 
         } .addOnFailureListener{
 
