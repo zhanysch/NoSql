@@ -39,14 +39,6 @@ class MainActivity : AppCompatActivity() {
         if ( PermissionUtils.checkLocationPermission(this) ){
             LoadLocattion()
         }
-        WeatherApp.getApp()?.getDB()?.getDao()?.getAll()?.observe(this, androidx.lifecycle.Observer {
-            Toast.makeText(this, "${it.isNotEmpty()}" , Toast.LENGTH_LONG).show()
-            if (it.isNotEmpty()) {
-                val item = it.first()
-                adapter.update(item.daily)
-
-            }
-        })
 
     }
 
@@ -70,10 +62,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun FullViews(res: ForcastModelOne?) {
         runOnUiThread {
-            res?.let {
-                WeatherApp.getApp()?.getDB()?.getDao()?.addForcast(it)
-                Log.d("blabla", "blabla")
+            if(res !=null) {
+                adapter.update(res.daily)
             }
+
         }
     }
 
